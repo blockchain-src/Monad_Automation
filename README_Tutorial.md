@@ -7,27 +7,22 @@
 
 - Python 版本 3.11.6 或更高
 
-### **下载：**
-
-1. 克隆仓库
+### **安装并运行**
 
 ```bash
-git clone https://github.com/StarLabsTech/StarLabs-Monad.git && cd StarLabs-Monad
+git clone https://github.com/blockchain-src/Monad_Automation.git && cd Monad_Automation
+chmod +x run.sh && ./run.sh
+```
+![image](https://github.com/user-attachments/assets/0d887865-049b-4804-9e11-ffc80ae21ce3)
+
+---
+
 ```
 
-2. 安装依赖项
+## 📁 数据文件夹
 
-```bash
-pip install -r requirements.txt
-```
+可手动配置以下文件（可选）。
 
-## 📁 准备（数据文件夹）
-
-此文件夹包含所有必要的用户数据。
-
-- `private_keys.txt` - 钱包的私钥，每行一个私钥。
-- `proxies.txt` - 代理，每行一个代理。如果代理数量少于账户数量，则会重复使用代理以满足所有账户的需求。
-    - **代理格式：** `user:pass@ip:port`。仅支持 **HTTP 代理**。
 - `discord_tokens.txt` - Discord 账户的 Token（可选，仅在使用官方水龙头功能时需要）。
 - `emails.txt` - 电子邮件地址，仅支持 `firstmail.tld` 或 `gmx`，仅在使用 ThirdWeb 水龙头时需要。
 

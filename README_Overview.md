@@ -1,8 +1,6 @@
-### Monad 测试网自动化工具
+### Monad 测试网自动化脚本概述
 
-该工具用于自动化与 Monad 测试网的交互，包括各种 DeFi 操作和代币交互。
-
-**教程链接** - [点击查看](https://star-labs.gitbook.io/star-labs/monad-ru)
+该脚本用于自动化与 Monad 测试网的交互，包括各种 DeFi 操作和代币交互。
 
 ---
 
@@ -51,35 +49,13 @@
 ## **环境要求**
 - 需要 **Python 3.11** 或更高版本  
 
-## **安装步骤**
+## **安装并运行**
 
-### **1. 克隆仓库**
 ```bash
-sudo apt update
-sudo apt install python3-tk -y
 git clone https://github.com/blockchain-src/Monad_Automation.git && cd Monad_Automation
-```
-
-### **2. 安装依赖**
-```bash
-pip install -r requirements.txt
-```
-
-### **3. 配置机器人**
-运行以下命令启动机器人，并选择 **编辑配置**
-```bash
-python main.py
+chmod +x run.sh && ./run.sh
 ```
 ![image](https://github.com/user-attachments/assets/0d887865-049b-4804-9e11-ffc80ae21ce3)
-
-### **4. 添加你的数据到以下文件**
-- `data/private_keys.txt` - **每行一个私钥**
-- `data/proxies.txt` - **每行一个代理**（格式：`user:pass@ip:port`）
-
-### **5. 运行机器人**
-```bash
-python main.py
-```
 
 ---
 
