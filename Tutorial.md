@@ -17,8 +17,6 @@ chmod +x run.sh && ./run.sh
 
 ---
 
-```
-
 ## 📁 数据文件夹
 
 可手动配置以下文件（可选）。
@@ -87,3 +85,6 @@ chmod +x run.sh && ./run.sh
 - `AMOUNT_TO_REFUEL` - 用多少 ETH 购买代币。
 - `MINIMUM_BALANCE_TO_REFUEL` - 如果测试网络的余额低于设定值，则执行充值。
 
+## **支持**
+- **Telegram 技术支持群**: [点击加入](https://t.me/StarLabsTech)  
+- **Telegram 交流群**: [点击加入](https://t.me/StarLabsChat)

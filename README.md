@@ -46,16 +46,7 @@
 
 ---
 
-## **环境要求**
-- 需要 **Python 3.11** 或更高版本  
-
-## **安装并运行**
-
-```bash
-git clone https://github.com/blockchain-src/Monad_Automation.git && cd Monad_Automation
-chmod +x run.sh && ./run.sh
-```
-![image](https://github.com/user-attachments/assets/0d887865-049b-4804-9e11-ffc80ae21ce3)
+## 安装教程 [查看文档](Tutorial.md)
 
 ---
 
