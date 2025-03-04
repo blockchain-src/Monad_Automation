@@ -8,38 +8,38 @@ class ConfigUI:
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
 
-        # Define color scheme
+        # 定义颜色方案
         self.colors = {
-            "bg": "#121212",  # Slightly lighter black background
-            "frame_bg": "#1e1e1e",  # Slightly lighter frame background
-            "accent": "#B8860B",  # More muted gold/yellow (DarkGoldenrod)
-            "text": "#ffffff",  # White text
-            "entry_bg": "#1e1e1e",  # Dark input background
-            "hover": "#8B6914",  # Darker muted yellow for hover
+            "bg": "#121212",  # 稍微浅一点的黑色背景
+            "frame_bg": "#1e1e1e",  # 略浅的框架背景
+            "accent": "#B8860B",  # 更柔和的金色/黄色（DarkGoldenrod）
+            "text": "#ffffff",  # 白色文字
+            "entry_bg": "#1e1e1e",  # 深色输入背景
+            "hover": "#8B6914",  # 悬停时使用较暗的柔和黄色
         }
 
-        # Standardize input widths
+        # 标准化输入宽度
         self.input_sizes = {
-            "tiny": 70,  # For small numbers (1-2 digits)
-            "small": 115,  # For short text/numbers
-            "medium": 180,  # For medium length text
-            "large": 250,  # For long text
-            "extra_large": 350,  # For very long text/lists
+            "tiny": 70,  # 对于小数字（1-2 位数字）
+            "small": 115,  # 对于短文本/数字
+            "medium": 180,  # 适用于中等长度的文本
+            "large": 250,  # 对于长文本
+            "extra_large": 350,  # 对于非常长的文本/列表
         }
 
         self.root = ctk.CTk()
         self.root.title("StarLabs Monad Configuration")
         self.root.geometry("1250x800")
-        self.root.minsize(1250, 800)  # Set minimum window size
+        self.root.minsize(1250, 800)  # 设置最小窗口大小
         self.root.configure(fg_color=self.colors["bg"])
 
         # Create header frame
         header_frame = ctk.CTkFrame(self.root, fg_color=self.colors["bg"])
         header_frame.pack(
             fill="x", padx=50, pady=(20, 0)
-        )  # Increased left/right padding
+        )  # 增加左/右填充
 
-        # Header on the left
+        # 左侧标题
         header = ctk.CTkLabel(
             header_frame,
             text="🌟 StarLabs Monad Configuration",
@@ -47,28 +47,28 @@ class ConfigUI:
             text_color=self.colors["accent"],
             anchor="w",
         )
-        header.pack(side="left", padx=5)  # Added left padding
+        header.pack(side="left", padx=5)  # 添加了左填充
 
-        # Save button in the top right
+        # 右上角的保存按钮
         self.save_button = ctk.CTkButton(
             header_frame,
-            text="⚡ SAVE",  # Changed icon and made text uppercase
+            text="⚡ SAVE",  # 更改图标并将文本设为大写
             command=self._save_and_close,
-            font=("Helvetica", 18, "bold"),  # Increased font size
+            font=("Helvetica", 18, "bold"),  # 增大字体
             height=45,
-            width=160,  # Slightly wider
+            width=160,  # 稍微宽一点
             fg_color=self.colors["accent"],
             hover_color=self.colors["hover"],
             text_color=self.colors["text"],
             corner_radius=10,
         )
-        self.save_button.pack(side="right", padx=5)  # Added right padding
+        self.save_button.pack(side="right", padx=5)  # 添加了右填充
 
-        # Create main frame with scrollbar
+        # 创建带有滚动条的主框架
         self.main_frame = ctk.CTkFrame(self.root, fg_color=self.colors["bg"])
         self.main_frame.pack(fill="both", expand=True, padx=5)
 
-        # Add canvas and scrollbar
+        # 添加画布和滚动条
         self.canvas = ctk.CTkCanvas(
             self.main_frame, bg=self.colors["bg"], highlightthickness=0
         )
@@ -87,19 +87,19 @@ class ConfigUI:
             lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")),
         )
 
-        # Pack scrollbar components
+        # 打包滚动条组件
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar.pack(side="right", fill="y")
 
-        # Create window in canvas with proper width
+        # 在画布上创建具有适当宽度的窗口
         self.canvas.create_window(
             (0, 0),
             window=self.scrollable_frame,
             anchor="nw",
-            width=self.canvas.winfo_width(),  # Use canvas width
+            width=self.canvas.winfo_width(),  # 使用画布宽度
         )
 
-        # Update canvas width when window is resized
+        # 调整窗口大小时更新画布宽度
         def update_canvas_width(event):
             self.canvas.itemconfig(
                 self.canvas.find_withtag("all")[0], width=event.width
@@ -107,10 +107,10 @@ class ConfigUI:
 
         self.canvas.bind("<Configure>", update_canvas_width)
 
-        # Configure scrollbar
+        # 配置滚动条
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
 
-        # Mouse wheel scrolling
+        # 鼠标滚轮滚动
         self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
 
         self.load_config()
@@ -127,7 +127,7 @@ class ConfigUI:
     def create_range_inputs(self, parent, label, config_value, width=120):
         frame = ctk.CTkFrame(parent, fg_color=self.colors["frame_bg"])
         frame.pack(fill="x", pady=5)
-        frame.grid_columnconfigure(1, weight=1)  # Column for inputs will expand
+        frame.grid_columnconfigure(1, weight=1)  # 输入栏将扩大
 
         ctk.CTkLabel(
             frame,
@@ -175,7 +175,7 @@ class ConfigUI:
     def create_single_input(self, parent, label, config_value, width=300):
         frame = ctk.CTkFrame(parent, fg_color=self.colors["frame_bg"])
         frame.pack(fill="x", pady=5)
-        frame.grid_columnconfigure(1, weight=1)  # Column for input will expand
+        frame.grid_columnconfigure(1, weight=1)  # 输入栏将扩大
 
         ctk.CTkLabel(
             frame,
@@ -293,11 +293,11 @@ class ConfigUI:
         )
         label.pack(anchor="w", padx=10, pady=(5, 0))
 
-        # Создаем фрейм для списка контрактов
+        # 创建合约清单的框架
         contracts_frame = ctk.CTkFrame(frame, fg_color=self.colors["frame_bg"])
         contracts_frame.pack(fill="x", padx=10, pady=5)
 
-        # Создаем Listbox для отображения контрактов
+        # 创建列表框来显示合约
         contracts_list = ctk.CTkTextbox(
             contracts_frame,
             height=100,
@@ -309,14 +309,14 @@ class ConfigUI:
         )
         contracts_list.pack(side="left", padx=(0, 10), fill="both", expand=True)
 
-        # Добавляем существующие контракты
+        # 添加现有合约
         contracts_list.insert("1.0", "\n".join(config_value))
 
-        # Создаем фрейм для кнопок управления
+        # 为控制按钮创建框架
         buttons_frame = ctk.CTkFrame(contracts_frame, fg_color=self.colors["frame_bg"])
         buttons_frame.pack(side="left", fill="y")
 
-        # Поле для ввода нового контракта
+        # 输入新合约的字段
         new_contract_entry = ctk.CTkEntry(
             buttons_frame,
             width=200,
@@ -346,7 +346,7 @@ class ConfigUI:
             except:
                 pass
 
-        # Кнопки управления
+        # 控制按钮
         add_button = ctk.CTkButton(
             buttons_frame,
             text="Add Contract",
@@ -374,7 +374,7 @@ class ConfigUI:
         return contracts_list
 
     def create_widgets(self):
-        # Create two columns using pack
+        # 使用 pack 创建两列
         columns_frame = ctk.CTkFrame(self.scrollable_frame, fg_color=self.colors["bg"])
         columns_frame.pack(fill="both", expand=True)
 
@@ -384,9 +384,9 @@ class ConfigUI:
         right_column = ctk.CTkFrame(columns_frame, fg_color=self.colors["bg"])
         right_column.pack(side="left", fill="both", expand=True, padx=5)
 
-        # LEFT COLUMN
+        # 左栏
 
-        # General Settings Category
+        # 常规设置类别
         self.create_category_header(left_column, "⚙️ GENERAL SETTINGS")
         settings = self.create_section(left_column, "SETTINGS")
         self.threads_entry = self.create_single_input(
@@ -408,7 +408,7 @@ class ConfigUI:
             width=self.input_sizes["tiny"],
         )
 
-        # Add EXACT_ACCOUNTS_TO_USE
+        # 添加 EXACT_ACCOUNTS_TO_USE
         self.exact_accounts = self.create_single_input(
             settings,
             "EXACT_ACCOUNTS_TO_USE",
@@ -453,7 +453,7 @@ class ConfigUI:
             width=self.input_sizes["tiny"],
         )
 
-        # Add Telegram settings
+        # 添加电报设置
         self.telegram_ids = self.create_single_input(
             settings,
             "TELEGRAM_USERS_IDS",
@@ -467,7 +467,7 @@ class ConfigUI:
             width=self.input_sizes["extra_large"],
         )
 
-        # Faucets Category
+        # 水龙头类别
         self.create_category_header(left_column, "🚰 FAUCETS")
 
         faucet = self.create_section(left_column, "FAUCET")
@@ -482,7 +482,7 @@ class ConfigUI:
             self.config["DISPERSE"]["MIN_BALANCE_FOR_DISPERSE"],
         )
 
-        # Swaps Category
+        # SWAP 类别
         self.create_category_header(left_column, "💱 SWAPS")
 
         flow = self.create_section(left_column, "FLOW")
@@ -495,10 +495,10 @@ class ConfigUI:
             self.config["FLOW"]["PERCENT_OF_BALANCE_TO_SWAP"],
         )
 
-        # NFT Category
+        # NFT 类别
         self.create_category_header(left_column, "🎨 NFT")
 
-        # Add ACCOUNTABLE section
+        # 添加 ACCOUNTABLE 部分
         accountable = self.create_section(left_column, "ACCOUNTABLE")
         self.accountable_limit = self.create_single_input(
             accountable,
@@ -507,7 +507,7 @@ class ConfigUI:
             width=100,
         )
 
-        # Add LILCHOGSTARS section
+        # 添加 LILCHOGSTARS 部分
         lilchog = self.create_section(left_column, "LILCHOGSTARS")
         self.lilchog_amount_min, self.lilchog_amount_max = self.create_range_inputs(
             lilchog,
@@ -515,7 +515,7 @@ class ConfigUI:
             self.config["LILCHOGSTARS"]["MAX_AMOUNT_FOR_EACH_ACCOUNT"],
         )
 
-        # Add DEMASK section
+        # 添加 DEMASK 部分
         demask = self.create_section(left_column, "DEMASK")
         self.demask_amount_min, self.demask_amount_max = self.create_range_inputs(
             demask,
@@ -523,7 +523,7 @@ class ConfigUI:
             self.config["DEMASK"]["MAX_AMOUNT_FOR_EACH_ACCOUNT"],
         )
 
-        # Add MONADKING section
+        # 添加 MONADKING 部分
         monadking = self.create_section(left_column, "MONADKING")
         self.monadking_amount_min, self.monadking_amount_max = self.create_range_inputs(
             monadking,
@@ -531,7 +531,7 @@ class ConfigUI:
             self.config["MONADKING"]["MAX_AMOUNT_FOR_EACH_ACCOUNT"],
         )
 
-        # Add MAGICEDEN section
+        # 添加 MAGICEDEN 部分
         magiceden = self.create_section(left_column, "MAGICEDEN")
         self.magiceden_contracts = self.create_nft_contracts_list(
             magiceden,
@@ -539,9 +539,9 @@ class ConfigUI:
             self.config["MAGICEDEN"]["NFT_CONTRACTS"],
         )
 
-        # RIGHT COLUMN
+        # 右栏
 
-        # Staking Category
+        # 质押类别
         self.create_category_header(right_column, "🥩 STAKING")
 
         apriori = self.create_section(right_column, "APRIORI")
@@ -576,10 +576,10 @@ class ConfigUI:
             self.config["SHMONAD"]["PERCENT_OF_BALANCE_TO_SWAP"],
         )
 
-        # Bridge & Refuel Category
+        # Bridge & Refuel 类别
         self.create_category_header(right_column, "🌉 BRIDGE & REFUEL")
 
-        # Add GASZIP section
+        # 添加 GASZIP 部分
         gaszip = self.create_section(right_column, "GASZIP")
         self.gaszip_networks = self.create_network_checkboxes(
             gaszip,
@@ -618,7 +618,7 @@ class ConfigUI:
             width=self.input_sizes["small"],
         )
 
-        # Add MEMEBRIDGE section
+        # 添加 MEMEBRIDGE 部分
         memebridge = self.create_section(right_column, "MEMEBRIDGE")
         self.memebridge_networks = self.create_network_checkboxes(
             memebridge,
@@ -661,7 +661,7 @@ class ConfigUI:
             width=self.input_sizes["small"],
         )
 
-        # Add TESTNET_BRIDGE section
+        # 添加 TESTNET_BRIDGE 部分
         testnet = self.create_section(right_column, "TESTNET_BRIDGE")
         self.testnet_networks = self.create_network_checkboxes(
             testnet,
@@ -707,11 +707,11 @@ class ConfigUI:
             orbiter, "MAX_WAIT_TIME", self.config["ORBITER"]["MAX_WAIT_TIME"]
         )
 
-        # Add EXCHANGES section
+        # 添加交易所部分
         self.create_category_header(right_column, "💱 EXCHANGES")
         exchanges = self.create_section(right_column, "EXCHANGES")
 
-        # Exchange selection
+        # 交易所选择
         exchange_frame = ctk.CTkFrame(exchanges, fg_color=self.colors["frame_bg"])
         exchange_frame.pack(fill="x", pady=5)
         
@@ -737,7 +737,7 @@ class ConfigUI:
         )
         exchange_combobox.grid(row=0, column=1, padx=(0, 10), sticky="e")
 
-        # API credentials
+        # API 证明
         self.exchange_api_key = self.create_single_input(
             exchanges,
             "API Key",
@@ -757,7 +757,7 @@ class ConfigUI:
             width=self.input_sizes["extra_large"],
         )
 
-        # Withdrawal settings
+        # 提款设置
         withdrawal_frame = ctk.CTkFrame(exchanges, fg_color=self.colors["frame_bg"])
         withdrawal_frame.pack(fill="x", pady=5)
         
@@ -768,7 +768,7 @@ class ConfigUI:
             text_color=self.colors["accent"],
         ).pack(anchor="w", padx=10, pady=10)
 
-        # Currency selection (currently only ETH)
+        # 货币选择（目前仅限ETH）
         self.withdrawal_currency = self.create_single_input(
             withdrawal_frame,
             "Currency",
@@ -776,14 +776,14 @@ class ConfigUI:
             width=self.input_sizes["small"],
         )
 
-        # Networks selection
+        # 网络选择
         self.withdrawal_networks = self.create_network_checkboxes(
             withdrawal_frame,
             "Networks",
             self.config["EXCHANGES"]["withdrawals"][0]["networks"],
         )
 
-        # Min/Max amount
+        # 最小/最大数量
         self.withdrawal_min_amount, self.withdrawal_max_amount = self.create_range_inputs(
             withdrawal_frame,
             "Amount Range",
@@ -793,7 +793,7 @@ class ConfigUI:
             ],
         )
 
-        # Max wallet balance
+        # 钱包最大余额
         self.withdrawal_max_balance = self.create_single_input(
             withdrawal_frame,
             "Max Wallet Balance",
@@ -801,7 +801,7 @@ class ConfigUI:
             width=self.input_sizes["small"],
         )
 
-        # Wait for funds checkbox and max wait time
+        # 等待资金复选框和最长等待时间
         self.withdrawal_wait = self.create_checkbox(
             withdrawal_frame,
             "Wait for Funds to Arrive",
@@ -828,8 +828,8 @@ class ConfigUI:
         self.root.destroy()
 
     def save_config(self):
-        # Update config dictionary with new values
-        # SETTINGS
+        # 使用新值更新配置字典
+        # 设置
         self.config["SETTINGS"]["THREADS"] = int(self.threads_entry.get())
         self.config["SETTINGS"]["ATTEMPTS"] = int(self.attempts_entry.get())
         self.config["SETTINGS"]["ACCOUNTS_RANGE"] = [
@@ -837,12 +837,12 @@ class ConfigUI:
             int(self.acc_range_end.get()),
         ]
 
-        # Add new SETTINGS fields
+        # 添加新的设置字段
         self.config["SETTINGS"]["EXACT_ACCOUNTS_TO_USE"] = [
             int(x.strip()) for x in self.exact_accounts.get().split(",") if x.strip()
         ]
 
-        # Паузы в секундах (целые числа)
+        # 暂停时间（秒数）（整数）
         self.config["SETTINGS"]["PAUSE_BETWEEN_ATTEMPTS"] = [
             int(float(self.pause_attempts_min.get())),
             int(float(self.pause_attempts_max.get())),
@@ -1011,13 +1011,13 @@ class ConfigUI:
         self.config["ORBITER"]["WAIT_FOR_FUNDS_TO_ARRIVE"] = self.orbiter_wait.get()
         self.config["ORBITER"]["MAX_WAIT_TIME"] = int(self.orbiter_wait_time.get())
 
-        # EXCHANGES
+        # 交易所
         self.config["EXCHANGES"]["name"] = self.exchange_var.get()
         self.config["EXCHANGES"]["apiKey"] = self.exchange_api_key.get()
         self.config["EXCHANGES"]["secretKey"] = self.exchange_secret_key.get()
         self.config["EXCHANGES"]["passphrase"] = self.exchange_passphrase.get()
         
-        # Update withdrawals configuration
+        # 更新提款配置
         self.config["EXCHANGES"]["withdrawals"] = [{
             "currency": self.withdrawal_currency.get(),
             "networks": [
@@ -1031,37 +1031,37 @@ class ConfigUI:
             "retries": int(self.withdrawal_retries.get())
         }]
 
-        # Save to file with improved formatting
+        # 保存为具有改进格式的文件
         config_path = os.path.join(os.path.dirname(__file__), "..", "..", "config.yaml")
         
-        # Custom YAML dumper for better formatting
+        # 自定义 YAML 转储器以实现更好的格式化
         class OrderedDumper(yaml.SafeDumper):
             pass
         
         def dict_representer(dumper, data):
-            # For the withdrawal dictionary inside EXCHANGES, use a specific order
+            # 对于交易所中的提款字典，使用特定的顺序
             if isinstance(data, dict) and any(key in data for key in ["min_amount", "max_amount", "max_wait_time"]):
-                # This appears to be a withdrawal configuration
+                # 这似乎是一个撤回配置
                 ordered_items = []
-                # Ensure currency comes first if present
+                # 确保货币优先（如果存在）
                 if "currency" in data:
                     ordered_items.append(("currency", data["currency"]))
                 
-                # Custom order for key withdrawal parameters
+                # 关键提款参数的自定义顺序
                 order_priority = ["networks", "min_amount", "max_amount", "max_balance", "wait_for_funds", "max_wait_time", "retries"]
                 
                 for key in order_priority:
                     if key in data:
                         ordered_items.append((key, data[key]))
                 
-                # Add any remaining keys alphabetically
+                # 按字母顺序添加所有剩余的键
                 for key in sorted(data.keys()):
                     if key not in ["currency"] and key not in order_priority:
                         ordered_items.append((key, data[key]))
                 
                 return dumper.represent_mapping(yaml.resolver.Resolver.DEFAULT_MAPPING_TAG, ordered_items)
             
-            # For all other dictionaries, sort keys alphabetically
+            # 对于所有其他词典，按字母顺序对键进行排序
             return dumper.represent_mapping(
                 yaml.resolver.Resolver.DEFAULT_MAPPING_TAG,
                 sorted(data.items())
@@ -1070,19 +1070,19 @@ class ConfigUI:
         OrderedDumper.add_representer(dict, dict_representer)
         
         with open(config_path, "w") as file:
-            # Add a blank line between top-level sections
+            # 在顶层部分之间添加一个空行以提高可读性
             yaml_text = yaml.dump(self.config, Dumper=OrderedDumper, default_flow_style=False, sort_keys=False, width=80)
             
-            # Insert blank lines between top-level sections for better readability
+            # 在顶层部分之间插入空行以提高可读性
             formatted_lines = []
             prev_indent = None
             
             for line in yaml_text.split('\n'):
                 current_indent = len(line) - len(line.lstrip())
                 
-                # If this is a top-level key (no indent) and not the first line
+                # 如果这是顶级键（无缩进）并且不是第一行
                 if current_indent == 0 and line and prev_indent is not None:
-                    formatted_lines.append('')  # Add a blank line before new section
+                    formatted_lines.append('')  # 在新部分之前添加空白行
                 
                 formatted_lines.append(line)
                 prev_indent = current_indent if line else prev_indent
@@ -1092,11 +1092,11 @@ class ConfigUI:
             print(f"Configuration saved to {config_path}")
 
     def run(self):
-        """Run the configuration UI"""
+        """运行配置 UI"""
         self.root.mainloop()
 
 
-# Удалить или закомментировать эту часть, так как теперь запуск будет через метод run()
+# 删除或注释掉这部分，因为现在启动将通过 run() 方法进行。
 # def main():
 #     app = ConfigUI()
 #     app.root.mainloop()

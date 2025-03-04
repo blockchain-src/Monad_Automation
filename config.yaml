@@ -1,127 +1,161 @@
 # --------------------------- #
-# SETTINGS SECTION
+# 设置部分
 # --------------------------- #
 SETTINGS:
-    # number of concurrent threads
+    # 并发线程数
     THREADS: 1
-    # number of retries for ANY action
+    # 每个操作的最大重试次数
     ATTEMPTS: 5
-    # account range.
-    # BY DEFAULT: [0, 0] - all accounts
-    # [3, 5] - only 3 4 5 accounts
-    # [7, 7] - only 7 account
+    # 账户范围。
+    # 默认: [0, 0] - 所有账户
+    # [3, 5] - 仅使用第 3、4、5 号账户
+    # [7, 7] - 仅使用第 7 号账户
     ACCOUNTS_RANGE: [0, 0]
-    # WORKS ONLY IF ACCOUNTS_RANGE IS [0, 0]
-    # exact accounts to use. 
-    # BY DEFAULT: [] - all accounts
-    # Example: [1, 4, 6] - bot will use only 1, 4 and 6 accounts
+    # 仅当 ACCOUNTS_RANGE 为 [0, 0] 时生效
+    # 指定确切的账户编号。
+    # 默认: [] - 使用所有账户
+    # 例如: [1, 4, 6] - 仅使用第 1、4、6 号账户
     EXACT_ACCOUNTS_TO_USE: []
-    # pause between attempts
+    # 每次尝试之间的暂停时间（秒）
     PAUSE_BETWEEN_ATTEMPTS: [5, 15]
-    # pause between swaps
+    # 每次交换之间的暂停时间（秒）
     PAUSE_BETWEEN_SWAPS: [10, 40]
-    # pause in seconds between accounts
+    # 账户之间的随机暂停时间（秒）
     RANDOM_PAUSE_BETWEEN_ACCOUNTS: [3, 15]
-    # pause in seconds between actions
+    # 操作之间的随机暂停时间（秒）
     RANDOM_PAUSE_BETWEEN_ACTIONS: [3, 10]
-    # random pause before start of every account
-    # to make sure that all accounts will be started at different times
+    # 每个账户开始前的随机延迟（秒）
+    # 确保所有账户不会同时启动
     RANDOM_INITIALIZATION_PAUSE: [1, 2]
-    # pause multiplier for browser actions
+    # 浏览器操作的暂停时间倍数
     BROWSER_PAUSE_MULTIPLIER: 1.5
-    # telegram settings
+    # Telegram 设置
     TELEGRAM_BOT_TOKEN: ''
     TELEGRAM_USERS_IDS: []
 
 # --------------------------- #
-# FLOW SECTION
+# 流程部分
 # --------------------------- #
 FLOW:
-    # number of swaps. bean ambient monad etc
+    # 交换次数（例如 bean、ambient、monad 等）
     NUMBER_OF_SWAPS: [1, 3]
-    # percent of balance to swap
+    # 交换的余额百分比
     PERCENT_OF_BALANCE_TO_SWAP: [10, 15]
 
 # --------------------------- #
-# OTHER SECTIONS
+# 其他部分
 # --------------------------- #
 DISPERSE:
-    # if balance of main account is LESS than this value
-    # bot will disperse tokens from farm accounts to main account
+    # 如果主账户余额低于该值
+    # 机器人将从农场账户向主账户转移代币
     MIN_BALANCE_FOR_DISPERSE: [0.2, 0.5]
 
 APRIORI:
+    # 质押金额范围
     AMOUNT_TO_STAKE: [0.0001, 0.0003]
 
 MAGMA:
+    # 质押金额范围
     AMOUNT_TO_STAKE: [0.0001, 0.0003]
 
 KINTSU:
-    # MINIMUM IS 0.01 $MON
+    # 最小金额为 0.01 $MON
     AMOUNT_TO_STAKE: [0.01, 0.02]
 
 BIMA:
+    # 是否进行借贷
     LEND: true
+    # 借贷的余额百分比
     PERCENT_OF_BALANCE_TO_LEND: [20.0, 30.0]
 
 GASZIP:
+    # 从哪些网络补充 gas 费
     NETWORKS_TO_REFUEL_FROM: ["Arbitrum", "Base", "Optimism"]
+    # 补充 gas 费的金额范围
     AMOUNT_TO_REFUEL: [0.0001, 0.00015]
+    # 低于此余额时触发补充
     MINIMUM_BALANCE_TO_REFUEL: 0.5
+    # 是否等待资金到账
     WAIT_FOR_FUNDS_TO_ARRIVE: true
+    # 最大等待时间（秒）
     MAX_WAIT_TIME: 999999
+    # 是否桥接所有资金
     BRIDGE_ALL: false
+    # 桥接所有资金时的最大金额
     BRIDGE_ALL_MAX_AMOUNT: 0.0002
 
 MEMEBRIDGE:
+    # 从哪些网络补充 gas 费
     NETWORKS_TO_REFUEL_FROM: ["Arbitrum", "Base", "Optimism"]
+    # 补充 gas 费的金额范围
     AMOUNT_TO_REFUEL: [0.0001, 0.00015]
+    # 低于此余额时触发补充
     MINIMUM_BALANCE_TO_REFUEL: 0.5
+    # 是否等待资金到账
     WAIT_FOR_FUNDS_TO_ARRIVE: true
+    # 最大等待时间（秒）
     MAX_WAIT_TIME: 999999
+    # 是否桥接所有资金
     BRIDGE_ALL: false
+    # 桥接所有资金时的最大金额
     BRIDGE_ALL_MAX_AMOUNT: 0.0002
 
 TESTNET_BRIDGE:
+    # 从哪些网络补充 gas 费
     NETWORKS_TO_REFUEL_FROM: ["Arbitrum", "Optimism"]
+    # 补充 gas 费的金额范围
     AMOUNT_TO_REFUEL: [0.0002, 0.0003]
+    # 低于此余额时触发补充
     MINIMUM_BALANCE_TO_REFUEL: 5.0
+    # 是否等待资金到账
     WAIT_FOR_FUNDS_TO_ARRIVE: true
+    # 最大等待时间（秒）
     MAX_WAIT_TIME: 999999
 
 SHMONAD:
+    # 购买并质押 SHMON 代币
     BUY_AND_STAKE_SHMON: true
+    # 取消质押并出售 SHMON 代币
     UNSTAKE_AND_SELL_SHMON: true
-    # percent of balance to swap on shmonad.xyz
+    # 在 shmonad.xyz 交换的余额百分比
     PERCENT_OF_BALANCE_TO_SWAP: [2, 3]
 
 ACCOUNTABLE:
+    # 每个账户的 NFT 限制数量
     NFT_PER_ACCOUNT_LIMIT: 3
 
 ORBITER:
+    # 桥接金额范围
     AMOUNT_TO_BRIDGE: [0.1, 0.2]
+    # 是否桥接所有资金
     BRIDGE_ALL: true
+    # 是否等待资金到账
     WAIT_FOR_FUNDS_TO_ARRIVE: true
+    # 最大等待时间（秒）
     MAX_WAIT_TIME: 999999999
 
 LILCHOGSTARS:
+    # 每个账户的最大交易数量
     MAX_AMOUNT_FOR_EACH_ACCOUNT: [1, 3]
 
 DEMASK:
+    # 每个账户的最大交易数量
     MAX_AMOUNT_FOR_EACH_ACCOUNT: [1, 3]
 
-# monadking or monadking_unlocked
+# monadking 或 monadking_unlocked
 MONADKING:
+    # 每个账户的最大交易数量
     MAX_AMOUNT_FOR_EACH_ACCOUNT: [1, 3]
 
 MAGICEDEN:
+    # NFT 合约地址
     NFT_CONTRACTS: [
         "0xb81fbb4362a586fdb3edfe261b2e1bbe73e6cd67",  # 0.01 $MON
         "0x281df2c9178aa2dfd229771ef8f03cce90e60373",  # 0.01 $MON
         "0x002c8fd766605b609d31cc9764e27289daf033e9",  # 0.001 $MON
         "0x471af5eb201adc7851f4abec99ba1c78e51de0ce",  # 0.01 $MON
-        "0x63300257926af6f2a1bf2d4efb4240d8d8f250d6",  # free
-        "0xfd3b54bd826cea09d15e87f95a869ecf3e462f92",  # free
+        "0x63300257926af6f2a1bf2d4efb4240d8d8f250d6",  # 免费
+        "0xfd3b54bd826cea09d15e87f95a869ecf3e462f92",  # 免费
         "0xb2ea0ff3ad4134367fb7dc75d48b3493e5a09c81",
         "0x74e9115cfcaa5edbfc6670139c0b2a2833fc64ed",
         "0xdecbb47872961d27275d68ae651e1956ef609f42"
@@ -131,19 +165,19 @@ FAUCET:
     CAPSOLVER_API_KEY: CAP-
 
 # --------------------------- #
-# EXCHANGES SECTION
+# 交易所部分
 # --------------------------- #
 EXCHANGES:
-    name: "OKX"  # Supported: "OKX", "BITGET"
+    name: "OKX"  # 支持的交易所: "OKX", "BITGET"
     apiKey: ''
     secretKey: ''
     passphrase: ''  
     withdrawals:
-        - currency: "ETH" # ONLY ETH
-          networks: ["Arbitrum", "Base", "Optimism"] # ["Arbitrum", "Base", "Optimism"]
+        - currency: "ETH"  # 仅支持 ETH
+          networks: ["Arbitrum", "Base", "Optimism"]
           min_amount: 0.0003
           max_amount: 0.0004
           max_balance: 0.005
           wait_for_funds: true
-          max_wait_time: 99999  # in seconds
+          max_wait_time: 99999  # 以秒为单位
           retries: 3

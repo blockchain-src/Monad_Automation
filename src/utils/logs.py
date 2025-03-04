@@ -20,7 +20,7 @@ async def report_success(
     async with lock:
         os.makedirs(base_dir, exist_ok=True)
 
-        # Write each type of data to its respective file
+        # 将每种类型的数据写入各自的文件
         files_data = {
             "private_keys.txt": private_key,
             "proxies.txt": proxy,
@@ -28,7 +28,7 @@ async def report_success(
         }
 
         for filename, data in files_data.items():
-            if data:  # Only write if data is not empty
+            if data:  # 仅当数据不为空时才写入
                 filepath = os.path.join(base_dir, filename)
                 with open(filepath, "a", encoding="utf-8") as f:
                     f.write(f"{data}\n")
@@ -51,7 +51,7 @@ async def report_error(
     async with lock:
         os.makedirs(base_dir, exist_ok=True)
 
-        # Write each type of data to its respective file
+        # 将每种类型的数据写入各自的文件
         files_data = {
             "private_keys.txt": private_key,
             "proxies.txt": proxy,
@@ -59,7 +59,7 @@ async def report_error(
         }
 
         for filename, data in files_data.items():
-            if data:  # Only write if data is not empty
+            if data:  # 仅当数据不为空时才写入
                 filepath = os.path.join(base_dir, filename)
                 with open(filepath, "a", encoding="utf-8") as f:
                     f.write(f"{data}\n")

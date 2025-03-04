@@ -1,99 +1,88 @@
-# Monad Testnet Automation
+### Monad 测试网自动化工具
 
-This tool automates interactions with the Monad testnet, including various DeFi operations and token interactions.
+该工具用于自动化与 Monad 测试网的交互，包括各种 DeFi 操作和代币交互。
 
-TUTORIAL - https://star-labs.gitbook.io/star-labs/monad-ru
+**教程链接** - [点击查看](https://star-labs.gitbook.io/star-labs/monad-ru)
 
-# All features are available in config:
-# FAUCETS
-"faucet" - get tokens from faucet
+---
 
-"farm_faucet" - get tokens from faucet ON FARM ACCOUNTS (data/keys_for_faucet.txt)
+## 所有功能均可在配置文件中启用：
 
-"disperse_farm_accounts" - disperse tokens from farm accounts to main accounts | keys_for_faucet.txt -> private_keys.txt
+### **水龙头（FAUCETS）**
+- `"faucet"` - 从水龙头获取代币  
+- `"farm_faucet"` - 从水龙头获取代币（针对农场账户 `data/keys_for_faucet.txt`）  
+- `"disperse_farm_accounts"` - 将农场账户的代币分发到主账户 | `keys_for_faucet.txt -> private_keys.txt`  
+- `"disperse_from_one_wallet"` - 从单个钱包向所有其他钱包分发代币 | `keys_for_faucet.txt`（第一个钱包） -> `private_keys.txt`  
 
-"disperse_from_one_wallet" - disperse tokens from one wallet to all other wallets | keys_for_faucet.txt (first wallet) -> private_keys.txt
+### **代币交换（SWAPS）**
+- `"collect_all_to_monad"` - 将所有代币兑换为 Monad 原生代币（MON）  
+- `"swaps"` - 在 [testnet.monad.xyz](https://testnet.monad.xyz) 页面进行代币交换  
+- `"bean"` - 在 **Bean DEX** 进行代币交换  
+- `"ambient"` - 在 **Ambient DEX** 进行代币交换  
+- `"izumi"` - 在 **Izumi DEX** 进行代币交换  
 
-# SWAPS
-"collect_all_to_monad" - swap all tokens to native token (MON)
+### **质押（STAKES）**
+- `"apriori"` - 质押 MON 代币  
+- `"magma"` - 在 **Magma** 质押 MON 代币  
+- `"shmonad"` - 在 **shmonad.xyz** 购买并质押 shmon 代币 | **查看下方设置**  
+- `"kintsu"` - 在 **kintsu.xyz** 质押 MON 代币  
 
-"swaps" - testnet.monad.xyz/ page token swaps
+### **铸造 NFT（MINT）**
+- `"magiceden"` - 在 **magiceden.io** 铸造 NFT  
+- `"accountable"` - 铸造 **accountable NFT**  
+- `"owlto"` - 在 **Owlto** 部署合约  
+- `"lilchogstars"` - 在 **testnet.lilchogstars.com** 铸造 NFT  
+- `"demask"` - 在 **app.demask.finance/launchpad** 铸造 NFT  
+- `"monadking"` - 在 **nerzo.xyz/monadking** 铸造 NFT  
+- `"monadking_unlocked"` - 在 **www.nerzo.xyz/unlocked** 铸造 NFT  
 
-"bean" - swap tokens on Bean DEX
+### **Gas 费用补充（REFUEL）**
+- `"gaszip"` - 通过 **Arbitrum、Optimism、Base** 补充 Monad Gas  
+- `"orbiter"` - 通过 **Orbiter** 桥接 **Sepolia** 的 ETH 至 Monad  
+- `"memebridge"` - 通过 **Arbitrum、Optimism、Base** 补充 Monad Gas  
 
-"ambient" - swap tokens on Ambient DEX
+### **其他（OTHER）**
+- `"logs"` - 显示日志信息：MON 余额 | 交易数量 | 平均余额 | 平均交易数量  
+- `"nad_domains"` - 在 **nad.domains** 注册随机域名  
+- `"aircraft"` - 在 **aircraft.fun** 铸造 NFT  
 
-"izumi" - swap tokens on Izumi DEX
+---
 
-# STAKES
-"apriori" - stake MON token
+## **环境要求**
+- 需要 **Python 3.11** 或更高版本  
 
-"magma" - stake MON token on Magma
+## **安装步骤**
 
-"shmonad" - buy and stake shmon on shmonad.xyz | LOOK SETTINGS BELOW
-
-"kintsu" - stake MON token on kintsu.xyz/
-
-# MINT
-"magiceden" - mint NFT on magiceden.io
-
-"accountable" - mint accountable nft
-
-"owlto" - deploy contract on Owlto
-
-"lilchogstars" - mint NFT on testnet.lilchogstars.com/
-
-"demask" - mint NFT on app.demask.finance/launchpad/0x2cdd146aa75ffa605ff7c5cc5f62d3b52c140f9c/0
-
-"monadking" - mint NFT on nerzo.xyz/monadking
-
-"monadking_unlocked" - mint NFT on www.nerzo.xyz/unlocked
-
-# REFUEL
-"gaszip" - gaszip refuel from arbitrum, optimism, base to monad
-
-"orbiter" - bridge ETH from Sepolia to Monad via Orbiter
-
-"memebridge" - memebridge refuel from arbitrum, optimism, base to monad
-
-# OTHER
-"logs" - show logs: MON balance | number of transactions | avarage balance | avarage number of transactions
-
-"nad_domains" - register random domain on nad.domains
-
-"aircraft" - mint NFT on aircraft.fun
-
-## Requirements
-- Python 3.11 or higher
-
-## Installation
-
-1. Clone the repository
+### **1. 克隆仓库**
 ```bash
-git clone https://github.com/0xStarLabs/StarLabs-Monad.git
-cd StarLabs-Monad
+sudo apt update
+sudo apt install python3-tk -y
+git clone https://github.com/blockchain-src/Monad_Automation.git && cd Monad_Automation
 ```
 
-2. Install dependencies
+### **2. 安装依赖**
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Configure the bot by starting it (py main.py) and choosing the edit config option`
+### **3. 配置机器人**
+运行以下命令启动机器人，并选择 **编辑配置**
+```bash
+python main.py
+```
 ![image](https://github.com/user-attachments/assets/0d887865-049b-4804-9e11-ffc80ae21ce3)
 
-```
+### **4. 添加你的数据到以下文件**
+- `data/private_keys.txt` - **每行一个私钥**
+- `data/proxies.txt` - **每行一个代理**（格式：`user:pass@ip:port`）
 
-4. Add your data to the following files:
-- `data/private_keys.txt` - One private key per line
-- `data/proxies.txt` - One proxy per line (format: `user:pass@ip:port`)
-
-
-5. Run the bot
+### **5. 运行机器人**
 ```bash
 python main.py
 ```
 
-## Support
-- Telegram: https://t.me/StarLabsTech
-- Chat: https://t.me/StarLabsChat
+---
+
+## **支持**
+- **Telegram 技术支持群**: [点击加入](https://t.me/StarLabsTech)  
+- **Telegram 交流群**: [点击加入](https://t.me/StarLabsChat)

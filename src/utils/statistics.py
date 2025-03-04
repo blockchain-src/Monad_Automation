@@ -4,39 +4,38 @@ from loguru import logger
 
 from src.utils.config import Config, WalletInfo
 
-
 def print_wallets_stats(config: Config):
     """
-    Выводит статистику по всем кошелькам в виде таблицы
+    以表格形式输出所有钱包的统计信息
     """
     try:
-        # Сортируем кошельки по индексу
+        # 按索引对钱包进行排序
         sorted_wallets = sorted(config.WALLETS.wallets, key=lambda x: x.account_index)
 
-        # Подготавливаем данные для таблицы
+        # 准备表格数据
         table_data = []
         total_balance = 0
         total_transactions = 0
 
         for wallet in sorted_wallets:
-            # Маскируем приватный ключ (последние 5 символов)
+            # 隐藏私钥（仅显示最后 5 个字符）
             masked_key = "•" * 3 + wallet.private_key[-5:]
 
             total_balance += wallet.balance
             total_transactions += wallet.transactions
 
             row = [
-                str(wallet.account_index),  # Просто номер без ведущего нуля
-                wallet.address,  # Полный адрес
+                str(wallet.account_index),  # 纯数字索引，无前导零
+                wallet.address,  # 完整钱包地址
                 masked_key,
-                f"{wallet.balance:.4f} MON",
-                f"{wallet.transactions:,}",  # Форматируем число с разделителями
+                f"{wallet.balance:.4f} MON",  # 余额格式化为 4 位小数
+                f"{wallet.transactions:,}",  # 交易次数，带千位分隔符
             ]
             table_data.append(row)
 
-        # Если есть данные - выводим таблицу и статистику
+        # 如果有数据，则输出表格和统计信息
         if table_data:
-            # Создаем заголовки для таблицы
+            # 创建表格标题
             headers = [
                 "№ Account",
                 "Wallet Address",
@@ -45,36 +44,36 @@ def print_wallets_stats(config: Config):
                 "Total Txs",
             ]
 
-            # Формируем таблицу с улучшенным форматированием
+            # 生成表格，使用更美观的格式
             table = tabulate(
                 table_data,
                 headers=headers,
-                tablefmt="double_grid",  # Более красивые границы
-                stralign="center",  # Центрирование строк
-                numalign="center",  # Центрирование чисел
+                tablefmt="double_grid",  # 更美观的边框
+                stralign="center",  # 文本居中对齐
+                numalign="center",  # 数字居中对齐
             )
 
-            # Считаем средние значения
+            # 计算平均值
             wallets_count = len(sorted_wallets)
             avg_balance = total_balance / wallets_count
             avg_transactions = total_transactions / wallets_count
 
-            # Выводим таблицу и статистику
+            # 输出表格和统计数据
             logger.info(
                 f"\n{'='*50}\n"
-                f"         Wallets Statistics ({wallets_count} wallets)\n"
+                f"         钱包统计信息 ({wallets_count} 个钱包)\n"
                 f"{'='*50}\n"
                 f"{table}\n"
                 f"{'='*50}\n"
                 f"{'='*50}"
             )
 
-            logger.info(f"Average balance: {avg_balance:.4f} MON")
-            logger.info(f"Average transactions: {avg_transactions:.1f}")
-            logger.info(f"Total balance: {total_balance:.4f} MON")
-            logger.info(f"Total transactions: {total_transactions:,}")
+            logger.info(f"平均余额: {avg_balance:.4f} MON")
+            logger.info(f"平均交易次数: {avg_transactions:.1f}")
+            logger.info(f"总余额: {total_balance:.4f} MON")
+            logger.info(f"总交易次数: {total_transactions:,}")
         else:
-            logger.info("\nNo wallet statistics available")
+            logger.info("\n暂无钱包统计数据")
 
     except Exception as e:
-        logger.error(f"Error while printing statistics: {e}")
+        logger.error(f"打印统计信息时出错: {e}")

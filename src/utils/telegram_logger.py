@@ -5,7 +5,7 @@ from src.utils.config import Config
 
 
 async def send_telegram_message(config: Config, message: str) -> None:
-    """Send a message to Telegram users using the bot token from config."""
+    """使用来自配置的机器人令牌向 Telegram 用户发送消息。"""
     bot = Bot(token=config.SETTINGS.TELEGRAM_BOT_TOKEN)
 
     for user_id in config.SETTINGS.TELEGRAM_USERS_IDS:

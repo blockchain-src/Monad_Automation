@@ -54,7 +54,7 @@ async def start():
 
     config = src.utils.get_config()
 
-    # Читаем все файлы
+    # 读取所有文件
     proxies = src.utils.read_txt_file("proxies", "data/proxies.txt")
     if len(proxies) == 0:
         logger.error("No proxies found in data/proxies.txt")
@@ -82,30 +82,30 @@ async def start():
     else:
         private_keys = src.utils.read_txt_file("private keys", "data/private_keys.txt")
 
-    # Определяем диапазон аккаунтов
+    # 确定账户范围
     start_index = config.SETTINGS.ACCOUNTS_RANGE[0]
     end_index = config.SETTINGS.ACCOUNTS_RANGE[1]
 
-    # Если оба 0, проверяем EXACT_ACCOUNTS_TO_USE
+    # 如果两者都为 0，则检查 EXACT_ACCOUNTS_TO_USE
     if start_index == 0 and end_index == 0:
         if config.SETTINGS.EXACT_ACCOUNTS_TO_USE:
-            # Преобразуем номера аккаунтов в индексы (номер - 1)
+            # 将账户编号转换为索引（编号 - 1）
             selected_indices = [i - 1 for i in config.SETTINGS.EXACT_ACCOUNTS_TO_USE]
             accounts_to_process = [private_keys[i] for i in selected_indices]
             logger.info(
                 f"Using specific accounts: {config.SETTINGS.EXACT_ACCOUNTS_TO_USE}"
             )
 
-            # Для совместимости с остальным кодом
+            # 兼容其他代码
             start_index = min(config.SETTINGS.EXACT_ACCOUNTS_TO_USE)
             end_index = max(config.SETTINGS.EXACT_ACCOUNTS_TO_USE)
         else:
-            # Если список пустой, берем все аккаунты как раньше
+            # 如果列表为空，则像以前一样使用所有账户
             accounts_to_process = private_keys
             start_index = 1
             end_index = len(private_keys)
     else:
-        # Python slice не включает последний элемент, поэтому +1
+        # Python 切片不包含最后一个元素，因此 +1
         accounts_to_process = private_keys[start_index - 1 : end_index]
 
     discord_tokens = [""] * len(accounts_to_process)
@@ -113,16 +113,16 @@ async def start():
 
     threads = config.SETTINGS.THREADS
 
-    # Подготавливаем прокси для выбранных аккаунтов
+    # 为选定的账户准备代理
     cycled_proxies = [
         proxies[i % len(proxies)] for i in range(len(accounts_to_process))
     ]
 
-    # Создаем список индексов и перемешиваем его
+    # 创建索引列表并对其进行随机排列
     shuffled_indices = list(range(len(accounts_to_process)))
     random.shuffle(shuffled_indices)
 
-    # Создаем строку с порядком аккаунтов
+    # 创建账户顺序的字符串
     account_order = " ".join(str(start_index + idx) for idx in shuffled_indices)
     logger.info(
         f"Starting with accounts {start_index} to {end_index} in random order..."
@@ -133,7 +133,7 @@ async def start():
     semaphore = asyncio.Semaphore(value=threads)
     tasks = []
 
-    # Используем перемешанные индексы для создания задач
+    # 使用随机化索引创建任务
     for shuffled_idx in shuffled_indices:
         tasks.append(
             asyncio.create_task(
@@ -154,79 +154,8 @@ async def start():
     print_wallets_stats(config)
 
 
-async def account_flow(
-    account_index: int,
-    proxy: str,
-    private_key: str,
-    discord_token: str,
-    email: str,
-    config: src.utils.config.Config,
-    lock: asyncio.Lock,
-):
-    try:
-        pause = random.randint(
-            config.SETTINGS.RANDOM_INITIALIZATION_PAUSE[0],
-            config.SETTINGS.RANDOM_INITIALIZATION_PAUSE[1],
-        )
-        logger.info(f"[{account_index}] Sleeping for {pause} seconds before start...")
-        await asyncio.sleep(pause)
-
-        report = False
-
-        instance = src.model.Start(
-            account_index, proxy, private_key, discord_token, email, config
-        )
-
-        result = await wrapper(instance.initialize, config)
-        if not result:
-            report = True
-
-        result = await wrapper(instance.flow, config)
-        if not result:
-            report = True
-
-        if report:
-            await report_error(lock, private_key, proxy, discord_token)
-        else:
-            await report_success(lock, private_key, proxy, discord_token)
-
-        pause = random.randint(
-            config.SETTINGS.RANDOM_PAUSE_BETWEEN_ACCOUNTS[0],
-            config.SETTINGS.RANDOM_PAUSE_BETWEEN_ACCOUNTS[1],
-        )
-        logger.info(f"Sleeping for {pause} seconds before next account...")
-        await asyncio.sleep(pause)
-
-    except Exception as err:
-        logger.error(f"{account_index} | Account flow failed: {err}")
-
-
-async def wrapper(function, config: src.utils.config.Config, *args, **kwargs):
-    attempts = config.SETTINGS.ATTEMPTS
-    for attempt in range(attempts):
-        result = await function(*args, **kwargs)
-        if isinstance(result, tuple) and result and isinstance(result[0], bool):
-            if result[0]:
-                return result
-        elif isinstance(result, bool):
-            if result:
-                return True
-
-        if attempt < attempts - 1:  # Don't sleep after the last attempt
-            pause = random.randint(
-                config.SETTINGS.PAUSE_BETWEEN_ATTEMPTS[0],
-                config.SETTINGS.PAUSE_BETWEEN_ATTEMPTS[1],
-            )
-            logger.info(
-                f"Sleeping for {pause} seconds before next attempt {attempt+1}/{config.SETTINGS.ATTEMPTS}..."
-            )
-            await asyncio.sleep(pause)
-
-    return result
-
-
 def task_exists_in_config(task_name: str, tasks_list: list) -> bool:
-    """Рекурсивно проверяет наличие задачи в списке задач, включая вложенные списки"""
+    """递归检查任务是否存在于任务列表中，包括嵌套列表"""
     for task in tasks_list:
         if isinstance(task, list):
             if task_exists_in_config(task_name, task):

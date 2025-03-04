@@ -152,15 +152,15 @@ class WithdrawalConfig:
     wait_for_funds: bool
     max_wait_time: int
     retries: int
-    max_balance: float  # Maximum wallet balance to allow withdrawal to
+    max_balance: float  # 允许提现的最大钱包余额
 
 
 @dataclass
 class ExchangesConfig:
-    name: str  # Exchange name (OKX, BINANCE, BYBIT)
+    name: str  # 交易所名称 (OKX, BINANCE, BYBIT)
     apiKey: str
     secretKey: str
-    passphrase: str  # Only needed for OKX
+    passphrase: str  # 仅适用于 OKX
     withdrawals: List[WithdrawalConfig]
 
 
@@ -194,16 +194,16 @@ class Config:
         with open(path, "r", encoding="utf-8") as file:
             data = yaml.safe_load(file)
 
-        # Load tasks from tasks.py
+        # 从tasks.py加载任务
         try:
-            # Try to import tasks from tasks.py using a regular import
+            # 尝试使用常规导入从tasks.py导入任务
             import tasks
 
             if hasattr(tasks, "TASKS"):
-                # TASKS now contains preset names
+                # TASKS 现在包含预设名称
                 preset_names = [preset_name.upper() for preset_name in tasks.TASKS]
 
-                # Combine tasks from all specified presets
+                # 合并所有指定预设中的任务
                 combined_tasks = []
                 for preset_name in preset_names:
                     if hasattr(tasks, preset_name):
@@ -368,7 +368,7 @@ class Config:
         )
 
 
-# Singleton pattern
+# 单例模式获取配置
 def get_config() -> Config:
     """Get configuration singleton"""
     if not hasattr(get_config, "_config"):

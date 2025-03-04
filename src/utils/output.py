@@ -18,13 +18,13 @@ import sys
 
 
 def show_logo():
-    """Отображает стильный логотип STARLABS"""
-    # Очищаем экран
+    """显示 STARLABS 的标志"""
+    # 清除屏幕
     os.system("cls" if os.name == "nt" else "clear")
 
     console = Console()
 
-    # Создаем звездное небо со стилизованным логотипом
+    # 创建带有星空效果的样式化标志
     logo_text = """
 ✦ ˚ . ⋆   ˚ ✦  ˚  ✦  . ⋆ ˚   ✦  . ⋆ ˚   ✦ ˚ . ⋆   ˚ ✦  ˚  ✦  . ⋆   ˚ ✦  ˚  ✦  . ⋆ ✦ ˚ 
 . ⋆ ˚ ✧  . ⋆ ˚  ✦ ˚ . ⋆  ˚ ✦ . ⋆ ˚  ✦ ˚ . ⋆  ˚ ✦ . ⋆ ˚  ✦ ˚ . ⋆  ˚ ✦ . ⋆  ˚ ✦ .✦ ˚ . 
@@ -39,20 +39,20 @@ def show_logo():
 . ⋆ ˚ ✧  . ⋆ ˚  ✦ ˚ . ⋆  ˚ ✦ . ⋆ ˚  ✦ ˚ . ⋆  ˚ ✦ . ⋆ ˚  ✦ ˚ . ⋆  ˚ ✦ . ⋆  ˚ ✦ .. ⋆  ˚ 
 ✦ ˚ . ⋆   ˚ ✦  ˚  ✦  . ⋆ ˚   ✦  . ⋆ ˚   ✦ ˚ . ⋆   ˚ ✦  ˚  ✦  . ⋆   ˚ ✦  ˚  ✦  . ⋆  ✦"""
 
-    # Создаем градиентный текст
+    # 创建渐变文本
     gradient_logo = Text(logo_text)
     gradient_logo.stylize("bold bright_cyan")
 
-    # Выводим с отступами
+    # 输出带有缩进的文本
     console.print(gradient_logo)
     print()
 
 
 def show_dev_info():
-    """Displays development and version information"""
+    """显示开发者信息和版本信息"""
     console = Console()
 
-    # Создаем красивую таблицу
+    # 创建美观的表格
     table = Table(
         show_header=False,
         box=box.DOUBLE,
@@ -62,19 +62,19 @@ def show_dev_info():
         highlight=True,
     )
 
-    # Добавляем колонки
-    table.add_column("Content", style="bright_cyan", justify="center")
+    # 添加列
+    table.add_column("内容", style="bright_cyan", justify="center")
 
-    # Добавляем строки с контактами
+    # 添加行，包含联系方式
     table.add_row("✨ StarLabs Monad Bot 1.8 ✨")
     table.add_row("─" * 43)
     table.add_row("")
     table.add_row("⚡ GitHub: [link]https://github.com/0xStarLabs[/link]")
-    table.add_row("👤 Dev: [link]https://t.me/StarLabsTech[/link]")
-    table.add_row("💬 Chat: [link]https://t.me/StarLabsChat[/link]")
+    table.add_row("👤 开发者: [link]https://t.me/StarLabsTech[/link]")
+    table.add_row("💬 交流群: [link]https://t.me/StarLabsChat[/link]")
     table.add_row("")
 
-    # Выводим таблицу с отступом
+    # 输出表格，并添加缩进
     print("   ", end="")
     print()
     console.print(table)
@@ -83,39 +83,36 @@ def show_dev_info():
 
 async def show_menu(title: str, options: List[str]) -> str:
     """
-    Displays an interactive menu with the given options and returns the selected option.
+    显示交互式菜单，并返回用户选择的选项。
     """
     try:
-        # Add empty lines for spacing
+        # 添加空行以调整间距
         print("\n")
 
-        # Create custom style with larger text
+        # 创建自定义样式，使文本更大
         custom_style = QuestionaryStyle(
             [
-                ("question", "fg:#B8860B bold"),  # Title color - muted gold
-                ("answer", "fg:#ffffff bold"),  # Selected option color - white
-                ("pointer", "fg:#B8860B bold"),  # Pointer color - muted gold
-                (
-                    "highlighted",
-                    "fg:#B8860B bold",
-                ),  # Highlighted option color - muted gold
-                ("instruction", "fg:#666666"),  # Instruction text color - gray
+                ("question", "fg:#B8860B bold"),  # 标题颜色 - 暗金色
+                ("answer", "fg:#ffffff bold"),  # 选中选项颜色 - 白色
+                ("pointer", "fg:#B8860B bold"),  # 指针颜色 - 暗金色
+                ("highlighted", "fg:#B8860B bold"),  # 高亮选项颜色 - 暗金色
+                ("instruction", "fg:#666666"),  # 说明文本颜色 - 灰色
             ]
         )
 
         print()
 
-        # Show the menu with custom style
+        # 显示菜单并应用自定义样式
         result = await questionary.select(
             title,
-            choices=options,  # Используем options напрямую, так как эмодзи уже есть
+            choices=options,  # 直接使用 options，因为其中已经包含了表情符号
             style=custom_style,
-            qmark="🎯",  # Custom pointer
-            instruction="(Use arrow keys and Enter to select)",
+            qmark="🎯",  # 自定义指示符
+            instruction="(使用方向键和回车选择)",
         ).ask_async()
 
         return result
 
     except KeyboardInterrupt:
-        print("\n\nExiting program... Goodbye! 👋")
+        print("\n\n退出程序... 再见！👋")
         sys.exit(0)
