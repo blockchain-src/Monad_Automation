@@ -6,13 +6,12 @@
 - **Python** 版本 **3.11.6** 或更高  
 
 ### 🛠 **安装 & 运行** 
-- **首次安装并运行**
+- **⚫ 首次安装并运行**
 ```bash
 git clone https://github.com/blockchain-src/Monad_Automation.git && cd Monad_Automation
 chmod +x run.sh && ./run.sh
 ```
-- **非首次运行**
-进入项目目录，执行以下命令
+- **⚫ 非首次运行**  — 进入项目目录，执行以下命令
 ```bash
 source venv/bin/activate && python3 main.py
 ```
