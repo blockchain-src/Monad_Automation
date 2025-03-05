@@ -53,10 +53,10 @@ source venv/bin/activate && python3 main.py
 
 ---
 
-## 📁 **数据文件（可选）**  
+## 📁 **data文件（可选）**  
 📌 **手动配置以下文件（如有需求）：**  
-- 📜 **`discord_tokens.txt`** — **Discord 账户 Token**（用于官方水龙头）  
-- 📧 **`emails.txt`** — **电子邮件**（支持 `firstmail.tld` 或 `gmx`，用于 ThirdWeb 水龙头）  
+- 📜 **`data/discord_tokens.txt`** — **Discord 账户 Token**（用于官方水龙头）  
+- 📧 **`data/emails.txt`** — **电子邮件**（支持 `firstmail.tld` 或 `gmx`，用于 ThirdWeb 水龙头）  
 
 ---
 
