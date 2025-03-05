@@ -15,6 +15,31 @@ chmod +x run.sh && ./run.sh
 ![image](https://github.com/user-attachments/assets/0d887865-049b-4804-9e11-ffc80ae21ce3)
 
 ---
+## 📁 **配置钱包和代理**
+> **在终端完成对 `private_keys.txt` 和 `proxies.txt` 的配置。**
+- 🗝️ **`private_keys.txt`** — 钱包的私钥，每行一个私钥。
+- 🛡️ **`proxies.txt`** — 代理，每行一个代理。
+  - 如果代理数量少于账户数量，则会重复使用代理以满足所有账户的需求。这可能会被识别为**女巫**行为。
+  - **代理格式**： 用户名:密码@IP地址:端口。仅支持 HTTP 代理。
+  - **示例**：
+    如果你的代理服务器信息如下：
+
+    代理服务器 IP：192.168.1.100
+    端口：8080
+    用户名：proxyuser
+    密码：proxypass
+
+    那么，你配置如下：
+    ```bash
+    proxyuser:proxypass@192.168.1.100:8080
+    ```
+  - **如何获得代理 IP & 端口？**
+
+    - 购买代理（如 BrightData、SmartProxy）
+    - 在 VPS 上搭建一个 SOCKS5 代理（可以使用 danted 服务器）
+    - VPN 提供的代理（部分 VPN 提供 SOCKS5 代理）
+    - Tor 网络代理（默认监听 127.0.0.1:9050）
+---
 
 ## 📁 **数据文件夹**
 > **可手动配置以下文件（可选）：**
