@@ -11,7 +11,10 @@
 git clone https://github.com/blockchain-src/Monad_Automation.git && cd Monad_Automation
 chmod +x run.sh && ./run.sh
 ```
-- **⚫ 非首次运行**  — 进入项目目录，执行以下命令
+
+- **⚫ 非首次运行**  
+
+进入项目目录，执行以下命令
 ```bash
 source venv/bin/activate && python3 main.py
 ```
