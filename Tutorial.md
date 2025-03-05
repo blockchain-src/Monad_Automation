@@ -17,7 +17,7 @@ chmod +x run.sh && ./run.sh
 ## 🎗️ **配置钱包 & 代理**  
 📌 **在终端配置 `private_keys.txt` 和 `proxies.txt`**  
 
-### 🔑 **输入私钥（`private_keys.txt`）**  
+### 🔑 **输入私钥（配置`private_keys.txt`）**  
 - **每行一个私钥**，示例如下：
   ```bash
   0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -28,7 +28,7 @@ chmod +x run.sh && ./run.sh
   - 通过 **MetaMask** 或 **OKX_web3钱包** 导出  
   - 使用 **助记词转换工具**（如 `ethers.js`）获取私钥  
 
-### 🛡️ **输入代理（`proxies.txt`）**  
+### 🛡️ **输入代理（配置`proxies.txt`）**  
 - **格式**：`用户名:密码@IP:端口`（仅支持 HTTP 代理）  
 - **每行一个代理**，示例如下：
   ```bash
