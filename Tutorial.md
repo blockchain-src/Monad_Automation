@@ -43,7 +43,7 @@ source venv/bin/activate && python3 main.py
   user2:proxypass@192.168.1.101:8080
   user3:proxypass@192.168.1.102:8080
   ```
-- **代理不足时会重复使用，可能导致“女巫”行为**  
+- **代理配置数量最好与私钥相同，如果代理不足会重复使用，可能会导致“女巫”行为**  
 
 - **代理来源推荐**：  
   - **购买代理**（如 BrightData、SmartProxy）  
