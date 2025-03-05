@@ -4,10 +4,10 @@
 
 ## ⚙️ **安装**
 
-### 🔹 **环境要求**
-- 📌 **Python** 版本 **3.11.6** 或更高  
+### 🔆 **环境要求**
+  📌 **Python** 版本 **3.11.6** 或更高  
 
-### 🛠 **安装并运行**
+### 🛠 **安装/运行**
 ```bash
 git clone https://github.com/blockchain-src/Monad_Automation.git && cd Monad_Automation
 chmod +x run.sh && ./run.sh
@@ -15,23 +15,21 @@ chmod +x run.sh && ./run.sh
 ![image](https://github.com/user-attachments/assets/0d887865-049b-4804-9e11-ffc80ae21ce3)
 
 ---
-## 📁 **配置钱包和代理**
+## 🎗️ **配置钱包和代理**
 > **在终端完成对 `private_keys.txt` 和 `proxies.txt` 的配置。**
-- 🗝️ **`private_keys.txt`** — 钱包的私钥，每行一个私钥。
-- 🛡️ **`proxies.txt`** — 代理，每行一个代理。
-  - 如果代理数量少于账户数量，则会重复使用代理以满足所有账户的需求。这可能会被识别为**女巫**行为。
-  - **代理格式**： 用户名:密码@IP地址:端口。仅支持 HTTP 代理。
+- 🗝️ ** `private_keys.txt` ** — 钱包的私钥，每行一个私钥。
+- 🛡️ ** `proxies.txt` ** — 代理，每行一个代理。
+  - 如果代理数量少于账户数量，则会重复使用代理以满足所有账户的需求。这可能会被识别为**`女巫`**行为。
+  - **代理格式**： `用户名:密码@IP地址:端口` 。仅支持 HTTP 代理。
   - **示例**：
+    
     如果你的代理服务器信息如下：
 
-    代理服务器 IP：192.168.1.100
-    端口：8080
-    用户名：proxyuser
-    密码：proxypass
+    `代理服务器 IP：192.168.1.100 | 端口：8080 | 用户名：user1 | 密码：proxypass`
 
-    那么，你配置如下：
+    那么，你应该配置如下：
     ```bash
-    proxyuser:proxypass@192.168.1.100:8080
+    user1:proxypass@192.168.1.100:8080
     ```
   - **如何获得代理 IP & 端口？**
 
