@@ -150,16 +150,19 @@ if [ ! -f "$PRIVATE_KEYS_FILE" ]; then
     touch "$PRIVATE_KEYS_FILE"
     print_info "✅ $PRIVATE_KEYS_FILE 文件已创建。"
 fi
-echo -e "\n🔑 请输入钱包的私钥，每行一个私钥，按两次回车结束输入。"
+echo -e "\n🔑 请输入钱包的私钥，每行一个私钥，按一次回车换行，按两次回车结束输入。"
+private_keys_input=""
 while true; do
-    echo -n "🔑 请输入一个私钥: "
     read -r private_key
     if [ -z "$private_key" ]; then
-        print_warning "⚠ 未输入任何内容，跳过。"
+        # 处理用户按两次回车结束输入
+        if [ -n "$private_keys_input" ]; then
+            echo -e "$private_keys_input" >> "$PRIVATE_KEYS_FILE"
+            print_success "✔ 私钥已添加到 $PRIVATE_KEYS_FILE"
+        fi
         break
     fi
-    echo "$private_key" >> "$PRIVATE_KEYS_FILE"
-    print_success "✔ 私钥已添加到 $PRIVATE_KEYS_FILE"
+    private_keys_input+="$private_key\n"
 done
 
 # 配置 proxies.txt
@@ -168,17 +171,21 @@ if [ ! -f "$PROXIES_FILE" ]; then
     touch "$PROXIES_FILE"
     print_info "✅ $PROXIES_FILE 文件已创建。"
 fi
-echo -e "\n🌐 请输入代理（格式：user:pass@ip:port），每行一个代理，按两次回车结束输入。"
+echo -e "\n🌐 请输入代理（格式：user:pass@ip:port），每行一个代理，按一次回车换行，按两次回车结束输入。"
+proxies_input=""
 while true; do
-    echo -n "🌐 请输入一个代理: "
     read -r proxy
     if [ -z "$proxy" ]; then
-        print_warning "⚠ 未输入任何内容，跳过。"
+        # 处理用户按两次回车结束输入
+        if [ -n "$proxies_input" ]; then
+            echo -e "$proxies_input" >> "$PROXIES_FILE"
+            print_success "✔ 代理已添加到 $PROXIES_FILE"
+        fi
         break
     fi
-    echo "$proxy" >> "$PROXIES_FILE"
-    print_success "✔ 代理已添加到 $PROXIES_FILE"
+    proxies_input+="$proxy\n"
 done
+
 
 # 运行机器人
 print_separator
