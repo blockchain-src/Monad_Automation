@@ -1,0 +1,34 @@
+{
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+    },
+    "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "**/node_modules": true,
+      "**/dist": true
+    },
+    "files.associations": {
+      "*.json": "jsonc"
+    },
+    "eslint.enable": true,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "prettier.requireConfig": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "workbench.startupEditor": "none",
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.iconTheme": "vscode-icons"
+  }
+  
